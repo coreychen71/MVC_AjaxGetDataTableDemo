@@ -1,0 +1,62 @@
+﻿@model MVC_AjaxGetDataTableDemo.ViewModels.HomeViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MVC_AjaxGetDataTableDemo</title>
+</head>
+<body>
+    <div class="row">
+        <h2>MVC_AjaxGetDataTableDemo</h2>
+    </div>
+    <div class="row">
+        <input id="BtnSubmit" type="button" value="取得學生資料" />
+        &ensp;
+        <label id="LblGetSuccess" title="取得結果："/>
+    </div>
+    <div class="row">
+        <table class="table" id="StudentTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    $("#BtnSubmit").click( function () {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetStudents", "Home")",
+            data: {},
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            success: function (data) {
+                
+                if (data != null) {
+
+                }
+            },
+            //error: function (jqXHR, textStatus, errorThrown) {
+            //    alert("Found error when using Ajax!!");
+            //    // 記得要加入error handler不然很難除錯XDDD
+            //}
+    });
+});
+</script>
