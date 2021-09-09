@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC_AjaxGetDataTableDemo.Models;
 using MVC_AjaxGetDataTableDemo.ViewModels;
+using Newtonsoft.Json;
 
 namespace MVC_AjaxGetDataTableDemo.Controllers.Home
 {
@@ -16,7 +17,7 @@ namespace MVC_AjaxGetDataTableDemo.Controllers.Home
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult GetStudents()
         {
             StudentModel students = new StudentModel();
@@ -25,8 +26,8 @@ namespace MVC_AjaxGetDataTableDemo.Controllers.Home
                 IsSuccess = "成功",
                 Students = students.Students
             };
-            
-            return Json(viewModel);
+
+            return Content(JsonConvert.SerializeObject(viewModel), "application/json");
         }
     }
 }

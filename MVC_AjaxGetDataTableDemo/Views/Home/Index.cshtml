@@ -40,23 +40,39 @@
 <script type="text/javascript">
     $("#BtnSubmit").click( function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "@Url.Action("GetStudents", "Home")",
             data: {},
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             async: false,
             cache: false,
-            success: function (data) {
-                
-                if (data != null) {
+            success: function (result) {
+                if (result != null) {
+                    $.each(result, function (TKey, TValue) {
+                        if (TKey == "IsSuccess") {
+                            alert(TValue);
+                        }
+                        else {
+                            let table = document.getElementById("StudentTable");
+                            
+                            for (let i = 0; i < TValue.length; i++) {
+                                let row = table.tBodies[0].insertRow(table.tBodies[0].rows.length)
+                                let cellId = row.insertCell(0);
+                                let cellName = row.insertCell(1);
+                                let cellAge = row.insertCell(2);
 
+                                cellId.innerHTML = TValue[i].Id;
+                                cellName.innerHTML = TValue[i].Name;
+                                cellAge.innerHTML = TValue[i].Age;
+                            }
+                        }
+                    })
                 }
             },
-            //error: function (jqXHR, textStatus, errorThrown) {
-            //    alert("Found error when using Ajax!!");
-            //    // 記得要加入error handler不然很難除錯XDDD
-            //}
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Found error when using Ajax!!");
+            }
     });
 });
 </script>
